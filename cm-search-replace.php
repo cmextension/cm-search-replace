@@ -46,7 +46,7 @@ function cm_generate_option_page() {
 			$data[$search] = $_POST['replace'][$key];
 		}
 
-		$json = json_encode($data);
+		$json = json_encode( $data );
 
 		update_option( 'data', $json );
 
@@ -54,7 +54,7 @@ function cm_generate_option_page() {
 	}
 
 	$json = get_option( 'data' );
-	$data = json_decode($json);
+	$data = json_decode( $json );
 ?>
 <style>
 #cmCloneMe {
@@ -78,10 +78,10 @@ function cm_generate_option_page() {
 	<form method="post" action="">
 		<div id="cmFieldContainer">
 <?php
-if ( !empty($data)) {
+if ( !empty( $data )) {
 	foreach ( $data as $search => $replace ) {
-		$search = htmlspecialchars(stripslashes($search), ENT_QUOTES);
-		$replace = htmlspecialchars(stripslashes($replace), ENT_QUOTES);
+		$search = htmlspecialchars( stripslashes( $search ), ENT_QUOTES );
+		$replace = htmlspecialchars( stripslashes( $replace ), ENT_QUOTES );
 ?>
 	<p>
 		<?php _e( 'Search for ', 'cm-search-replace' ); ?>
@@ -96,8 +96,8 @@ if ( !empty($data)) {
 ?>
 		</div>
 		<p>
-			<div id="cmAdd" class="button-primary"><?php _e( 'Add' , 'cm-search-replace') ?></div>
-			<input type="submit" class="button-primary" value="<?php esc_attr_e( 'Save' , 'cm-search-replace') ?>" />
+			<div id="cmAdd" class="button-primary"><?php _e( 'Add' , 'cm-search-replace' ) ?></div>
+			<input type="submit" class="button-primary" value="<?php esc_attr_e( 'Save' , 'cm-search-replace' ) ?>" />
 		</p>
 	</form>
 </div>
@@ -107,7 +107,7 @@ if ( !empty($data)) {
 		<input type="text" name="<?php echo $searchFieldName; ?>" value="">
 		<?php _e( 'then replace by ', 'cm-search-replace' ); ?>
 		<input type="text" name="<?php echo $replaceFieldName; ?>" value="">
-		<span class="cmRemove button-primary"><?php _e( 'Remove' , 'cm-search-replace') ?></span>
+		<span class="cmRemove button-primary"><?php _e( 'Remove' , 'cm-search-replace' ) ?></span>
 	</p>
 </div>
 <?php
@@ -115,13 +115,13 @@ if ( !empty($data)) {
 
 function cm_search_replace( $text ) {
 	$json = get_option( 'data' );
-	$data = json_decode($json);
+	$data = json_decode( $json );
 
-	if ( !empty($data)) {
+	if ( !empty( $data )) {
 		foreach ( $data as $search => $replace ) {
-			$search = stripslashes($search);
-			$replace = stripslashes($replace);
-			$text = str_replace($search, $replace, $text);
+			$search = stripslashes( $search );
+			$replace = stripslashes( $replace );
+			$text = str_replace( $search, $replace, $text );
 		}
 	}
 
