@@ -2,7 +2,7 @@
 /*
 Plugin Name: CM Search Replace
 Plugin URI: http://www.cmext.vn/
-Description: Plugin to search and replace specific words by different words in the whole front-end page. You can find the setting page of this plugin under "Settings" menu item, the setting page requires jQuery.
+Description: Plugin to search and replace specific words by different words in front-end page's body. You can find the setting page of this plugin under "Settings" menu item, the setting page requires jQuery.
 Version: 1.0
 Author: CMExtension Team
 Author http://www.cmext.vn/
@@ -39,7 +39,7 @@ function cm_generate_option_page() {
 	$searchFieldName = 'search[]';
 	$replaceFieldName = 'replace[]';
 
-	if( isset( $_POST['search'] ) && isset( $_POST['replace'] ) ) {
+	if ( isset( $_POST['search'] ) && isset( $_POST['replace'] ) ) {
 		$data = array();
 
 		foreach ( $_POST['search'] as $key => $search ) {
@@ -128,7 +128,17 @@ function cm_search_replace( $text ) {
 	return $text;
 }
 
-if ( !is_admin() ) {
+function cm_buffer_start() {
 	ob_start( 'cm_search_replace' );
+}
+
+function cm_buffer_end() {
+	ob_end_flush();
+}
+
+if ( !is_admin() ) {
+	// http://stackoverflow.com/questions/772510/wordpress-filter-to-modify-final-html-output
+	add_action( 'wp_head', 'cm_buffer_start' );
+	add_action( 'wp_footer', 'cm_buffer_end' );
 }
 ?>
